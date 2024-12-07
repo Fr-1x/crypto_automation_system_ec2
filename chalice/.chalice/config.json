@@ -1,0 +1,32 @@
+{
+  "version": "2.0",
+  "app_name": "crypto_bot_ec2",
+  "lambda_timeout" : 900,
+  "environment_variables": {
+    "EXCHANGE_NAME": "binance"
+  },
+  "stages": {
+    "dev": {
+      "api_gateway_stage": "dev",
+      "autogen_policy": false,
+      "iam_policy_file": "policy-dev.json",
+      "environment_variables": {
+        "TABLE_NAME": "TABLE_NAME",
+        "QUEUE_URL": "QUEUE_URL",
+        "SECRET_NAME": "SECRET_NAME",
+        "SANDBOX": "True"
+      }
+    },
+    "prod": {
+      "api_gateway_stage": "prod",
+      "autogen_policy": false,
+      "iam_policy_file": "policy-prod.json",
+      "environment_variables": {
+        "TABLE_NAME": "TABLE_NAME",
+        "QUEUE_URL": "https://sqs...",
+        "SECRET_NAME": "SECRET_NAME",
+        "SANDBOX": "False"
+      }
+    }
+  }
+}
