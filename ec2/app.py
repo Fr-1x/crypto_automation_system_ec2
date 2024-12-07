@@ -23,7 +23,7 @@ table_name = "TABLE_NAME"
 queue_url = "https://sqs..."
 
 def execute_order(order_json_str):
-    """Receives trade signal and executes in case of a stop loss."""
+    """Receives trade signal and executes it."""
 
     try:
         trade_in = json.loads(order_json_str)
@@ -36,12 +36,18 @@ def execute_order(order_json_str):
     trade_out = trade_processing.preprocess_trade_signal(trade_in)
     print("Trade Signal Processed: ", trade_out)
 
+    exchange = trade_execution.Exchange(exchange_name, base_currency)
+    exchange.connect(secret_name, sandbox=False)
+    print(f"Succesfully connected to exchange: {exchange_name}")
+
     if "stop" in trade_out.get("order_comment").lower():
-        exchange = trade_execution.Exchange(exchange_name, base_currency)
-        exchange.connect(secret_name, sandbox=False)
-        print(f"Succesfully connected to exchange: {exchange_name}")
         order = trade_execution.execute_long_stop(exchange, trade_out, increment_pct=0.001)
         print(f"Successfully executed order: {order}")
+    else:
+        trades = [ trade_out ]
+        orders = trade_execution.buy_side_boost(exchange, trades, increment_pct=0.001)
+        if orders:
+            print(f"Successfully placed order(s): {orders}")
 
 
 def execute_recent_orders():
