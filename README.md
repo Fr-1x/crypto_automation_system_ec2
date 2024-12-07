@@ -74,7 +74,7 @@ Reload systemd:
 sudo systemctl daemon-reload 
 ```
 
-Start or stop the service using ```sudo systemctl start crypto-automation``` or ```sudo systemctl stop crypto-automation```.
+Start or stop the service using ```sudo systemctl start crypto-automation``` or ```sudo systemctl stop crypto-automation```. Systemd will auto start the service after reboots.
 
 
 ### Chalice app
