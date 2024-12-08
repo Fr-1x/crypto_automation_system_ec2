@@ -32,7 +32,7 @@ python3 app.py --execute-order '{"time": "2024-12-07T16:00:10Z", "ticker": "BTCU
 Start the app in daemon mode:
 
 ```
-python3 -u app.py --daemon
+python3 app.py --daemon
 ```
 
 #### Sysetemd
