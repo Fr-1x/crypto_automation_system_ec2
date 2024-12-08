@@ -16,7 +16,7 @@ Note URL of the queue such as: https://sqs.REGION.amazonaws.com/ID/crypto_automa
 - Clone the Crypto Automation System to the server.
 - Create a virtual environment and activate it (see documentation).
 - Install the requirements and configure the strategy according to the documentation.
-- Create database tables and secrets according to the documentation.
+- Create a database table and a secret according to the documentation.
 - Replace app.py by ec2/app.py from this repository.
 - In app.py, set the variables in the beginng of the script, including the queue URL.
 - Run the script manually or automated, e.g., with cron or systemd.
