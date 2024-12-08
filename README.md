@@ -37,7 +37,7 @@ python3 -u app.py --daemon
 
 #### Sysetemd
 
-Setup a script that starts the app with logging. E.g., create run-daemon.sh as follows and adjust the paths as needed.
+Setup a script that starts the app with logging. E.g., create run-daemon.sh, execute ```chmod +x run-daemon.sh``` to make it executable and set the following content with path adjustments as needed.
 
 ```
 #!/bin/bash
@@ -69,12 +69,13 @@ ExecStart=/usr/bin/bash -c '/opt/crypto-automation/run-daemon.sh'
 WantedBy=multi-user.target
 ```
 
-Reload systemd:
+Reload systemd and enable the service:
 ```
-sudo systemctl daemon-reload 
+sudo systemctl daemon-reload
+sudo systemctl enable crypto-automation
 ```
 
-Start or stop the service using ```sudo systemctl start crypto-automation``` or ```sudo systemctl stop crypto-automation```. Systemd will auto start the service after reboots.
+Display the status with ```sudo systemctl status cc-automation```. Start or stop the service using ```sudo systemctl start crypto-automation``` or ```sudo systemctl stop crypto-automation```. Systemd will auto start the service after reboots.
 
 
 ### Chalice app
