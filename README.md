@@ -78,9 +78,9 @@ sudo systemctl enable crypto-automation
 Display the status with ```sudo systemctl status cc-automation```. Start or stop the service using ```sudo systemctl start crypto-automation``` or ```sudo systemctl stop crypto-automation```. Systemd will auto start the service after reboots.
 
 
-### Chalice app
+### API Gateway Setup with Chalice
 
-- Clone the Crypto Automation System to the server.
+- Clone the Crypto Automation System to a separate directory, e.g., on your local machine.
 - Create a virtual environment and activate it (see documentation).
 - Install the requirements.
 - Replace app.py by chalice/app.py from this repository.
