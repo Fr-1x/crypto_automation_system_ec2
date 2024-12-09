@@ -1,6 +1,5 @@
 import os
 import logging
-import paramiko
 import boto3
 import time
 import json
