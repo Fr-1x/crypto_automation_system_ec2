@@ -49,8 +49,7 @@ def receive_trade_signals_ec2():
         app.log.info("Trade on %s at %s saved to database", trade_out['ticker'], trade_out['create_ts'])
 
 # Scheduled Lambda Function
-#            (Cron("1", "0,8,16", "*", "*", "?", "*"))
-@app.schedule(Cron("1", "*", "*", "*", "?", "*"))
+@app.schedule(Cron("1", "0,8,16", "*", "*", "?", "*"))
 def execute_trade_signals(event):
 
     try:
