@@ -83,9 +83,7 @@ Display the status with ```sudo systemctl status cc-automation```. Start or stop
 - Clone the Crypto Automation System to a separate directory, e.g., on your local machine.
 - Create a virtual environment and activate it (see documentation).
 - Install the requirements.
-- Replace app.py by chalice/app.py from this repository.
-- Replace .chalice/config.json by chalice/.chalice/config.json.
-- Replace .chalice/policy-prod.json by chalice/.chalice/policy-prod.json.
+- Replace app.py, chalice/chalicelib/trade_processing.py, .chalice/config.json and .chalice/policy-prod.json with the files in chalice/.
 - Setup the variables in .chalice/config.json.
 - Deploy the app using ```chalice deploy --stage prod```, delete using ```chalice delete --stage prod```.
 
