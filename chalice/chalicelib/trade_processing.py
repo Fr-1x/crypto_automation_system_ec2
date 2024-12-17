@@ -19,13 +19,22 @@ def preprocess_trade_signal(trade_signal: dict) -> dict:
     """
     try:
         # Ensure required attributes exist
+        configs = utils.get_strategy_config()
         ticker = trade_signal.get("ticker")
         if not ticker:
             raise ValueError("Trade signal missing 'ticker' attribute.")
 
+        ticker_config = configs.get(ticker)
+        if not ticker_config:
+            raise ValueError(f"No configuration found for ticker '{ticker}'.")
+
         if "time" not in trade_signal:
             raise ValueError("Trade signal missing 'time' attribute")
         trade_signal["create_ts"] = trade_signal.pop("time")
+
+        # Add features from configuration file
+        for attribute, value in ticker_config.items():
+            trade_signal[attribute] = value
 
         trade_signal = utils.convert_floats_to_decimals(trade_signal)
 
