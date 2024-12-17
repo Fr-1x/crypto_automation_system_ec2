@@ -13,6 +13,7 @@ app.log.setLevel(logging.DEBUG)
 @app.route("/receive_trade_signals_ec2", methods=["POST"])
 def receive_trade_signals_ec2():
     """Receives trade signal via post request and executes stop loss or writes it to database."""
+    app.log.debug("Request Received: %s", app.current_request)
     trade_in = app.current_request.json_body
     app.log.debug("Trade Signal Received: %s", trade_in)
 
@@ -32,23 +33,24 @@ def receive_trade_signals_ec2():
                     'DataType': 'String'
                 }
             })
-            app.log.info(f"Message execute-order sent:", order_json_str)
+            app.log.info(f"Message execute-order sent: {order_json_str}")
 
         except Exception as e:
-            app.log.error("Error queuing stop order message:", e)
+            app.log.error(f"Error queuing stop order message: {e}")
             time.sleep(30)
 
     else:
         table_name = os.environ.get("TABLE_NAME")
         dynamodb_manager = utils.DynamoDBManager()
         table = dynamodb_manager.get_table(table_name)
-        app.log.debug("Established connection to %s database", table_name)
+        app.log.debug("Established connection to database table %s", table_name)
 
         table.put_item(Item=trade_out)
-        app.log.info("Trade on %s at %s saved to database.", trade_out['ticker'], trade_out['create_ts'])
+        app.log.info("Trade on %s at %s saved to database", trade_out['ticker'], trade_out['create_ts'])
 
-# Scheduled Lambda Function 
-@app.schedule(Cron("1", "0,8,16", "*", "*", "?", "*"))
+# Scheduled Lambda Function
+#            (Cron("1", "0,8,16", "*", "*", "?", "*"))
+@app.schedule(Cron("1", "*", "*", "*", "?", "*"))
 def execute_trade_signals(event):
 
     try:
@@ -60,6 +62,6 @@ def execute_trade_signals(event):
         app.log.info(f"Message execute-recent-orders sent")
 
     except Exception as e:
-        app.log.error("Error queuing stop order message:", e)
+        app.log.error(f"Error queuing stop order message: {e}")
         time.sleep(30)
-
+        
